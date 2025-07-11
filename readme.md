@@ -3,13 +3,16 @@
 Enhanced Markdown parser with custom extensions and improvements.
 Forked from [Michelf/php-markdown](https://github.com/Michelf/php-markdown)
 
+> **Important:** Edgering extensions translate simplified input shortcuts into standard Markdown syntax. They don't create new markdown codes, but provide easier ways to write existing Markdown features.
+
 ## Features
 
+- **Input Shortcuts**: Translates simplified syntax into standard Markdown Extra format
 - **PHP Version Compatibility**: Automatically selects appropriate Markdown library based on PHP version
-- **Enhanced Images**: Support for nested images and alignment
-- **Custom Tables**: Simplified table syntax with custom styling
+- **Enhanced Images**: Support for nested images and alignment shortcuts
+- **Custom Tables**: Simplified table syntax that converts to standard Markdown tables
 - **Smart Links**: Automatic CSS class assignment for social media and email links
-- **Backward Compatibility**: Maintains compatibility with standard Markdown Extra
+- **Backward Compatibility**: Maintains full compatibility with standard Markdown Extra
 
 ## Installation & Usage
 
@@ -45,25 +48,27 @@ echo \Michelf\MarkdownExtra::defaultTransform($text);
 
 ## Enhancements
 
+> All Edgering enhancements work as **input translators** - they convert simplified shortcuts into standard Markdown Extra syntax before processing.
+
 ### 1. Nested Images (`doNestedImages`)
 
-Converts image shortcodes to proper nested image syntax:
+Converts simplified image-link syntax to standard Markdown nested images:
 
-**Syntax:**
+**Input Shortcut:**
 ```markdown
 [image.jpg](link-url)
 ```
 
-**Output:**
+**Translated to Standard Markdown:**
 ```markdown
 [![](image.jpg)](link-url)
 ```
 
 ### 2. Image Alignment (`doImageAligns`)
 
-Add alignment classes to images using simple suffixes:
+Converts alignment shortcuts to standard Markdown Extra attribute syntax:
 
-**Syntax:**
+**Input Shortcuts:**
 ```markdown
 ![Alt text](image.jpg)[c]  # Center
 ![Alt text](image.jpg)[l]  # Left
@@ -71,7 +76,7 @@ Add alignment classes to images using simple suffixes:
 ![Alt text](image.jpg)[p]  # Right (alias)
 ```
 
-**Output:**
+**Translated to Standard Markdown Extra:**
 ```markdown
 ![Alt text](image.jpg){.ImgAlignCenter}
 ![Alt text](image.jpg){.ImgAlignLeft}
@@ -80,30 +85,33 @@ Add alignment classes to images using simple suffixes:
 
 ### 3. Simplified Tables (`doTranslateTables`)
 
-Create tables using a simplified bracket syntax:
+Converts bracket-and-semicolon syntax to standard Markdown tables:
 
-**Syntax:**
+**Input Shortcut:**
 ```markdown
 [Header 1;Header 2;Header 3
 Value 1;Value 2;Value 3
 Value 4;Value 5;Value 6]
 ```
 
-**With header separator:**
+**Translated to Standard Markdown:**
+```markdown
+| Header 1 | Header 2 | Header 3 |
+|----------|----------|----------|
+| Value 1  | Value 2  | Value 3  |
+| Value 4  | Value 5  | Value 6  |
+```
+
+**With explicit header separator:**
 ```markdown
 [Header 1;Header 2;Header 3
 ----;----;----
 Value 1;Value 2;Value 3]
 ```
 
-**Features:**
-- Semicolon (`;`) separators automatically converted to pipes (`|`)
-- Automatic header detection and styling
-- Custom CSS class `tbl_MD` applied to all tables
-
 ### 4. Smart Link Classes (`doKnownLinks`)
 
-Automatically adds CSS classes to social media and email links:
+Automatically adds CSS classes to recognized platform links using standard Markdown Extra attribute syntax:
 
 **Default Supported Platforms:**
 - Facebook → `.lnkFB`
@@ -161,20 +169,20 @@ unset(\Michelf\MarkdownEdgering::$known_links['facebook']);
 ## Requirements
 
 - **PHP 7.4+**: For enhanced features and modern syntax
-- **PHP < 7.4**: Falls back to legacy markdown-old.php
+- **PHP < 7.4**: Falls back to legacy `Michelf/previous/markdown-extra-1.2.8.php`
 
 ## File Structure
 
 ```
 markdown/
-├── markdown.php              # Main entry point with auto-detection
-├── markdown-old.php          # Legacy version for PHP < 7.4
-├── tester.php               # Example usage and testing
-├── Michelf/                 # Original Michelf Markdown library
+├── markdown.php                         # Main entry point with auto-detection
+├── Michelf/                             # Original Michelf Markdown library
 │   ├── Markdown.php
 │   ├── MarkdownExtra.php
+│   ├── previous/
+│   │   └── markdown-extra-1.2.8.php    # Legacy version for PHP < 7.4
 │   └── ...
-└── Edgering/               # Edgering enhancements
+└── Edgering/                           # Edgering enhancements
     └── MarkdownEdgering.php
 ```
 

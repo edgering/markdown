@@ -32,19 +32,19 @@ Allows insert table this way:
 
 Allows to add class to links in markdown:
 
-    [link text](known-link)
-
-Where `known-link` is defined in `Edgering\MarkdownEdgering::knownLinks()` method.
+    [link text](known-link){lnk"class"}
 
    // Add new platforms
    
-   \Michelf\MarkdownEdgering::addKnownLink('linkedin', 'LI');
-   \Michelf\MarkdownEdgering::addKnownLink('github', 'GH');
-   \Michelf\MarkdownEdgering::addKnownLink('tiktok', 'TT');
+    \Michelf\MarkdownEdgering::addKnownLink('linkedin', 'LI');
+    \Michelf\MarkdownEdgering::addKnownLink('github', 'GH');
+    \Michelf\MarkdownEdgering::addKnownLink('tiktok', 'TT');
 
-   // Remove a platform
-   \Michelf\MarkdownEdgering::removeKnownLink('twitter');
+    // Remove a platform
 
-   // Get all known links
-   $links = \Michelf\MarkdownEdgering::getKnownLinks();
+    \Michelf\MarkdownEdgering::removeKnownLink('twitter');
+
+    // Get all known links
+   
+    $links = \Michelf\MarkdownEdgering::getKnownLinks();
         

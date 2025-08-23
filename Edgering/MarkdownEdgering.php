@@ -138,7 +138,7 @@ class MarkdownEdgering extends \Michelf\Markdown
         return $text;
     }
 
-    function doKnownLinksEmail($text): string
+    public static function doKnownLinksEmail($text): string
     {
         // Handle mailto links separately
         // change: <email@address> to [email@address](mailto:email@address){.lnkMail}

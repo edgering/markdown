@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  Set proper markdown version
  *
@@ -14,14 +15,12 @@
 require_once(__DIR__ . '/Michelf/MarkdownExtra.inc.php');
 require_once(__DIR__ . '/Edgering/MarkdownEdgering.php');
 
-define("MARKDOWN_VERSION",\Michelf\MarkdownEdgering::MARKDOWNLIB_VERSION);
+define("MARKDOWN_VERSION", \Michelf\MarkdownEdgering::MARKDOWNLIB_VERSION);
 
 function Markdown($text)
 {
     $text = \Michelf\MarkdownEdgering::defaultTransform($text);
-
     $text = \Michelf\MarkdownExtra::defaultTransform($text);
-
     $text = \Michelf\MarkdownEdgering::defaultPostTransform($text);
 
     return $text;

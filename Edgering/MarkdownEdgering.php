@@ -96,16 +96,22 @@ class MarkdownEdgering extends \Michelf\Markdown
     public static function doKnownLinks($text): string
     {
         $text = self::doKnownLinksEmail($text);
-
+        
         // Transform short url link version to default
         // <{ref}> to [{ref}]({ref})
 
         $text = preg_replace_callback('/<([^>]+)>/', function ($matches) {
             $url = $matches[1];
-            $lnk = str_replace('https://', '', $url);
-            return "[{$lnk}]({$url})";
+            // Přidáno: kontrola, zda začíná na http
+            if (strpos($url, 'http') === 0) {
+                $lnk = str_replace('https://', '', $url);
+                return "[{$lnk}]({$url})";
+            }
+            // Pokud nezačíná na http, vrať původní tag
+            return "<{$url}>";
         }, $text);
 
+        
         // Create pattern to match any of the known platform names in URLs
         $platforms = implode('|', array_keys(self::$known_links));
 
@@ -139,7 +145,7 @@ class MarkdownEdgering extends \Michelf\Markdown
         // ! force search for @ to match only email addresses
 
         $text = preg_replace_callback('/<([^>]+@[^>]+\.[a-zA-Z]{2,})>/', function ($matches) {
-            $email = $matches[1];            
+            $email = $matches[1];
             return "[{$email}](mailto:{$email}){.lnkMail}";
         }, $text);
 

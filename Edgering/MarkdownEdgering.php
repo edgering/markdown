@@ -91,6 +91,10 @@ class MarkdownEdgering extends \Michelf\Markdown
      * Remove a platform
      * 
      *   unset(\Michelf\MarkdownEdgering::$known_links['twitter']);
+     * 
+     *  + also handle <email@address> to [email@address](mailto:email@address){.lnkMail}  
+     *  + also add .pdf links to {.lnkPDF}
+     * 
      */
 
     public static function doKnownLinks($text): string
@@ -133,6 +137,14 @@ class MarkdownEdgering extends \Michelf\Markdown
 
             // Return the link with added class
             return "{$link_text}({$full_url}){.lnk{$class}}";
+        }, $text);
+
+        // -- find .pdf and add class lnkPDF
+        
+        $text = preg_replace_callback('/(\[[^\]]+\])\(([^)]+\.pdf)(?!\{[^}]*\})\)/i', function ($matches) {
+            $link_text = $matches[1];               // [text]
+            $full_url = $matches[2];                // full URL ending with .pdf
+            return "{$link_text}({$full_url}){.lnkPDF}";
         }, $text);
 
         return $text;

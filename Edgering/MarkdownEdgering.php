@@ -189,7 +189,7 @@ class MarkdownEdgering extends \Michelf\Markdown
             "c" => "ImgAlignCenter",
             "l" => "ImgAlignLeft",
             "p" => "ImgAlignRight",
-            "r" => "ImgAlignRight",
+            "r" => "ImgAlignRight",            
         );
 
         $copy = $text; // keep a copy of the original text

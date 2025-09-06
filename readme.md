@@ -119,15 +119,12 @@ Automatically adds CSS classes to recognized platform links using standard Markd
 - Twitter → `.lnkTW`
 - YouTube → `.lnkYT`
 - Email addresses → `.lnkMail`
+- PDF files → `.lnkPDF`
 
 **Examples:**
 ```markdown
 [Visit us](https://facebook.com/page) → [Visit us](https://facebook.com/page){.lnkFB}
 <user@example.com> → [user@example.com](mailto:user@example.com){.lnkMail}
-```
-
-**add lnkPDF class to PDF links:**
-```markdown
 [Document](file.pdf) → [Document](file.pdf){.lnkPDF}
 ```
 

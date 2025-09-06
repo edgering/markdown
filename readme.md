@@ -126,6 +126,11 @@ Automatically adds CSS classes to recognized platform links using standard Markd
 <user@example.com> → [user@example.com](mailto:user@example.com){.lnkMail}
 ```
 
+**add lnkPDF class to PDF links:**
+```markdown
+[Document](file.pdf) → [Document](file.pdf){.lnkPDF}
+```
+
 ## Managing Known Links
 
 You can customize which platforms are recognized and their CSS classes:
